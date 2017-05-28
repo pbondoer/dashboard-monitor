@@ -1,0 +1,38 @@
+<!doctype html>
+
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>Dashboard</title>
+		<meta name="theme-color" content="#222222">
+		<!-- styles -->
+		<link rel="stylesheet" href="css/style.css">
+		<!-- fonts -->
+		<link rel="stylesheet" href="bower_components/components-font-awesome/css/font-awesome.min.css">
+		<link rel="stylesheet" href="bower_components/open-sans-fontface/open-sans.css">
+		<!-- scripts -->
+		<script async type="text/javascript" data-main="js/dashboard.js" src="bower_components/requirejs/require.js"></script>
+	</head>
+	<body>
+		<!-- Gets hidden on page load -->
+		<div id="loading">
+			<i class="fa fa-circle-o-notch fa-spin" aria-hidden="true"></i>
+			<span>Loading</span>
+		</div>
+
+		<!-- Contains notifications -->
+		<header id="notifications"></header>
+
+		<!-- Order of the menu in the DOM is important because of styles -->
+		<nav id="menu">
+			<a aria-label="Refresh" title="Refresh" href="#refresh"><i class="fa fa-refresh"></i></a>
+			<a aria-label="Settings" title="Settings" href="#settings"><i class="fa fa-cog"></i></a>
+		</nav>
+
+		<!-- Where groups and tiles will get added -->
+		<main></main>
+
+		<footer>dashboard-monitor 0.1.0 running on node-7.10.0<br>
+		made with ♥️ by <a href="https://bondoer.fr">Pierre</a></footer>
+	</body>
+</html>

@@ -1,0 +1,28 @@
+{
+  "name": "dashboard-monitor",
+  "homepage": "https://github.com/pbondoer/dashboard-monitor",
+  "authors": [
+    "Pierre Bondoerffer <pierre@bondoer.fr>"
+  ],
+  "description": "A simple node.js dashboard to monitor stats using REST APIs.",
+  "main": "index.html",
+  "keywords": [
+    "dashboard",
+    "monitor",
+    "node"
+  ],
+  "license": "GPL",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^3.2.1",
+    "components-font-awesome": "^4.7.0",
+    "open-sans-fontface": "^1.4.2",
+    "requirejs": "^2.3.3"
+  }
+}
