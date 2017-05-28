@@ -94,6 +94,18 @@ $('nav > a').on('click', function (event) {
 	}
 });
 
+// Update version information
+$.ajax('/version').done(function (data) {
+	if (typeof data !== 'object')
+		return;
+
+	if (typeof data.version !== 'string' || typeof data.node !== 'string')
+		return;
+
+	$('footer > #version').text(data.version);
+	$('footer > #node').text(data.node);
+});
+
 // Hide the loading screen
 $('#loading').fadeOut(300);
 
