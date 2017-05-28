@@ -12,11 +12,11 @@ var notifications = $("#notifications");
 var main = $("main");
 
 var addGroup = function(title, tiles) {
-	if (!title || typeof title !== 'string')
+	if (typeof title !== 'string')
 		return;
 
-	var container = $('<section>').addClass('container');
-	var header = $('<h1>').text(title);
+	var container = $('<section>', { 'class': 'container' });
+	var header = $('<h1>', { 'text': title });
 
 	container.append(header).appendTo(main);
 	console.log('Added group "' + title + '"');
@@ -28,7 +28,10 @@ var addGroup = function(title, tiles) {
 }
 
 var fa = function (classes) {
-	return $('<i>').addClass('fa ' + classes).attr('aria-hidden', 'true');
+	return $('<i>', {
+		'class': 'fa ' + classes,
+		'aria-hidden': 'true'
+	});
 }
 
 var notifyIcons = {
@@ -38,26 +41,29 @@ var notifyIcons = {
 }
 
 var notify = function(text, type, time, timeout) {
-	if (!text || typeof text !== 'string' || !type || typeof type !== 'string')
+	if (typeof text !== 'string' || typeof type !== 'string')
 		return;
 
-	var container = $('<header>').addClass('notification ' + type);
-	var content = $('<span>').attr('id', 'content').append(jQuery.parseHTML(text));
+	var container = $('<header>', { 'class': 'notification ' + type });
+	var content = $('<span>', {
+		'id': 'content',
+		'html': text
+	});
 	container.append(fa(notifyIcons[type]));
 	container.append(content);
-	if (time && typeof time === 'string') {
-		var timeContainer = $('<time>').text('(' + time + ')');
+	if (typeof time === 'string') {
+		var timeContainer = $('<time>', { 'text': '(' + time + ')' });
 		container.append(timeContainer);
 	}
-	
-	container.appendTo(notifications).hide().slideDown(200);
-	console.log("[notify] " + text);
 
-	if (timeout && typeof timeout === 'number') {
-		setTimeout(function() {
-			hideNotify(container);
-		}, timeout);
-	}
+	container.appendTo(notifications).hide().slideDown(200, function() {
+		if (typeof timeout === 'number') {
+			setTimeout(function() {
+				hideNotify(container);
+			}, timeout);
+		}
+	});
+	console.log("[notify] " + text);
 
 	return container;
 }
@@ -79,8 +85,12 @@ $('nav > a').on('click', function (event) {
 	event.preventDefault();
 
 	var link = $(event.target).closest('a[href]'); // in case we click on the fa icon
-	if (link.attr('href') === '#refresh') {
-		notify("Refreshing...", 'refresh', '0%', 1000);
+	var href = link.attr('href');
+
+	if (href === '#refresh') {
+		notify("Refreshing...", 'refresh', '0%', 0);
+	} else if (href === '#settings') {
+		notify("Coming soon!", 'info', null, 1000);
 	}
 });
 
@@ -94,8 +104,9 @@ $('#loading').fadeOut(300);
 		$('#loading > span').text('Error');
 		$('#loading > .fa').removeClass('fa-spin fa-circle-o-notch').addClass('fa-exclamation-circle');
 
-		$('<span>').attr('id', 'error')
-		.text('Please check the console for details')
-		.appendTo('#loading');
+		$('<span>', {
+			'id': 'error',
+			'text': 'Please check the console for details'
+		}).appendTo('#loading');
 	};
 });
