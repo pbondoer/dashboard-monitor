@@ -5,6 +5,8 @@ require.config({
 	}
 });
 
+var startTime = new Date();
+
 require(['jquery'], function ($) {
 	$(function() {
 
@@ -77,9 +79,6 @@ var hideNotify = function (container) {
 	});
 }
 
-addGroup('General statistics');
-addGroup('Pad types');
-
 // Menu bindings
 $('nav > a').on('click', function (event) {
 	event.preventDefault();
@@ -94,8 +93,11 @@ $('nav > a').on('click', function (event) {
 	}
 });
 
+// Start doing 
+var queue = [];
+
 // Update version information
-$.ajax('/version').done(function (data) {
+queue.push($.ajax('/version').done(function (data) {
 	if (typeof data !== 'object')
 		return;
 
@@ -104,10 +106,17 @@ $.ajax('/version').done(function (data) {
 
 	$('footer > #version').text(data.version);
 	$('footer > #node').text(data.node);
-});
+}));
 
-// Hide the loading screen
-$('#loading').fadeOut(300);
+$.when.apply($, queue).done(function () {
+	addGroup('General statistics');
+	addGroup('Pad types');
+
+	console.log("Loaded! (" + (new Date() - startTime) + 'ms)');
+
+	// Hide the loading screen
+	$('#loading').fadeOut(300);
+});
 
 	});
 

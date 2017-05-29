@@ -16,7 +16,7 @@ bower install
 To run the server, simply run:
 
 ```
-node dashboard
+node server
 ```
 
 Then, visit `localhost:4242` in your browser to start using it.

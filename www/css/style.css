@@ -207,3 +207,7 @@ footer {
 	text-align: center;
 	opacity: 0.15;
 }
+
+footer #love {
+	color: #ff4c93;
+}
